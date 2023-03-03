@@ -7,7 +7,6 @@ import com.amity.socialcloud.sdk.AmityCoreClient.login
 import com.amity.socialcloud.sdk.core.session.AccessTokenRenewal
 import com.amity.socialcloud.sdk.core.session.SessionHandler
 import com.amity.socialcloud.sdk.core.session.model.SessionState
-import com.ekoapp.core.utils.toSuspend
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.auth.api.identity.SignInClient
@@ -112,11 +111,10 @@ class AuthRepositoryImp @Inject constructor(
     }
 
     override suspend fun amityLogIn() =
-        //TODO Please change to an actual userId later
-        login(userId = "swag", sessionHandler = MySessionHandler())
+        login(userId = currentUserId, sessionHandler = MySessionHandler())
             .build()
             .submit()
-            .toSuspend()
+            .blockingAwait()
 
     class MySessionHandler : SessionHandler {
         override fun sessionWillRenewAccessToken(renewal: AccessTokenRenewal) {

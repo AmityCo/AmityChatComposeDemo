@@ -27,7 +27,11 @@ import co.amity.archdemo.data.remote.AuthRepository
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.firebase.auth.AuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -56,8 +60,6 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
-
-    suspend fun amityLogin() = authRepository.amityLogIn()
 
     private suspend fun googleSignUp(launcher: ManagedActivityResultLauncher<IntentSenderRequest, ActivityResult>) {
         when(val oneTapResponse: ApiResponse<BeginSignInResult> = authRepository.signUpWithGoogle())  {
