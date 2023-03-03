@@ -54,7 +54,9 @@ fun LoginScreen(
     }
 
     Column(modifier) {
-        Button(onClick = { scope.launch { viewModel.googleSignIn(launcher) } }) {
+        Button(onClick = {
+            scope.launch { viewModel.amityLogin() } }
+        ) {
             Text(text = stringResource(R.string.login_google_bt))
         }
         if (isProgressBarVisible) CircularProgressIndicator()

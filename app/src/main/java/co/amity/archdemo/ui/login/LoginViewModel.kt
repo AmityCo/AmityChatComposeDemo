@@ -57,6 +57,8 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    suspend fun amityLogin() = authRepository.amityLogIn()
+
     private suspend fun googleSignUp(launcher: ManagedActivityResultLauncher<IntentSenderRequest, ActivityResult>) {
         when(val oneTapResponse: ApiResponse<BeginSignInResult> = authRepository.signUpWithGoogle())  {
             is ApiResponse.Success -> {
