@@ -106,9 +106,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
 
     // Amity
-    implementation("com.github.AmityCo.Amity-Social-Cloud-SDK-Android:amity-sdk:5.33.5") {
-        exclude("androidx.paging")
-    }
+    implementation("com.github.AmityCo.Amity-Social-Cloud-SDK-Android:amity-sdk:5.33.5")
 
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.6.4")
