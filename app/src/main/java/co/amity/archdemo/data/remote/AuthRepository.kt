@@ -4,18 +4,15 @@ import co.amity.archdemo.data.local.models.ApiResponse
 import co.amity.archdemo.data.local.models.User
 import com.amity.socialcloud.sdk.AmityCoreClient
 import com.amity.socialcloud.sdk.AmityCoreClient.login
-import com.amity.socialcloud.sdk.core.authen.UserRegistration
 import com.amity.socialcloud.sdk.core.session.AccessTokenRenewal
 import com.amity.socialcloud.sdk.core.session.SessionHandler
 import com.amity.socialcloud.sdk.core.session.model.SessionState
-import com.ekoapp.core.utils.toSuspend
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import io.reactivex.Completable
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -34,7 +31,6 @@ interface AuthRepository {
     val isSignedIn: Flow<Boolean>
     val amitySession: Flow<SessionState>
     val amityTestSession: Flow<SessionState>
-    val amityLoginState: Flow<UserRegistration>
     suspend fun signInWithGoogle(): OneTapResponse
     suspend fun signUpWithGoogle(): OneTapResponse
     suspend fun firebaseSignInWithGoogle(googleCredential: AuthCredential): SignInToFirebaseResponse
@@ -111,22 +107,14 @@ class AuthRepositoryImp @Inject constructor(
 
     override val amitySession = flow {
         emit(AmityCoreClient.currentSessionState)
-        AmityCoreClient.observeSessionState().asFlow().also { amityLogIn() }
+        AmityCoreClient.observeSessionState().asFlow()
     }
 
     override suspend fun amityLogIn() =
         login(userId = currentUserId, sessionHandler = MySessionHandler())
             .build()
             .submit()
-            .toSuspend()
-
-    // TODO This is not if collected as state (but can't be combined). This is to be deleted when fixed
-    override val amityLoginState = AmityCoreClient
-        .login(currentUserId, sessionHandler = MySessionHandler())
-        .build()
-        .submit()
-        .toFlowable<UserRegistration>()
-        .asFlow()
+            .blockingAwait()
 
     class MySessionHandler : SessionHandler {
         override fun sessionWillRenewAccessToken(renewal: AccessTokenRenewal) {
