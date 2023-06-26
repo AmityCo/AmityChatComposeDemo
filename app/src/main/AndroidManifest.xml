@@ -29,11 +29,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
-        android:name="co.amity.archdemo.MyApplication"
+        android:name="co.amity.amitychat.MyApplication"
         android:enableOnBackInvokedCallback="true"
         tools:targetApi="31">
         <activity
-            android:name="co.amity.archdemo.ui.MainActivity"
+            android:name="co.amity.amitychat.ui.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.MyApplication">
             <intent-filter>

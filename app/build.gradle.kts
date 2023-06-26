@@ -24,17 +24,17 @@ plugins {
 }
 
 android {
-    namespace = "co.amity.archdemo"
+    namespace = "co.amity.amitychat"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "co.amity.archdemo"
-        minSdk = 21
+        applicationId = "co.amity.amitychat"
+        minSdk = 24
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "co.amity.archdemo.HiltTestRunner"
+        testInstrumentationRunner = "co.amity.amitychat.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -102,16 +102,12 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:31.1.1"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.android.gms:play-services-auth:20.4.0")
+    implementation(libs.play.services.auth)
     implementation("com.google.firebase:firebase-firestore-ktx")
 
     // Amity
-    implementation("com.github.AmityCo.Amity-Social-Cloud-SDK-Android:amity-sdk:5.33.5") {
-        exclude("androidx.paging")
-    }
-
-
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.6.4")
+    implementation(libs.amity.sdk)
+    implementation(libs.kotlinx.coroutines.rx2)
 
     // Arch Components
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -120,16 +116,16 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
-    implementation("androidx.paging:paging-runtime:3.1.1")
-    implementation("androidx.paging:paging-compose:1.0.0-alpha18"){
-        exclude("org.jetbrains.kotlin")
-    }
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.paging.compose)
 
     // Compose
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.coil.compose)
+    implementation(libs.accompanist.systemuicontroller)
+
     // Tooling
     debugImplementation(libs.androidx.compose.ui.tooling)
     // Instrumented tests

@@ -15,14 +15,19 @@
   -->
 
 <resources>
-    <string name="app_name">MyApplication</string>
+    <string name="app_name">Amity Chat</string>
     <string name="web_client_id">975105122946-nabeti5kbdcoa4n6gep5l9uhpv85c8i0.apps.googleusercontent.com</string>
 
     <string name="login_user_banned">You were banned by the moderators. If you think this is a mistake, reach out to them.</string>
     <string name="login_user_error">There was an error during the login. Please try again later.</string>
     <string name="login_google_bt">Sign in With Google</string>
     <string name="username_unknown">unknown</string>
+    <string name="contact_list_select_title">Select a contact to start a conversation</string>
+    <string name="empty_channels">No chats yet.\nStart a conversation!</string>
 
     <!-- Content description -->
     <string name="cd_avatar">User avatar</string>
+    <string name="chat_send_message">Send</string>
+    <string name="intut_channel_name_title">Enter channel name</string>
+    <string name="alert_ok">OK</string>
 </resources>
