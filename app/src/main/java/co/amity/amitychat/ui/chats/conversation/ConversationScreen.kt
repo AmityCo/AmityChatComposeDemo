@@ -38,7 +38,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -54,6 +53,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import co.amity.amitychat.R
+import co.amity.amitychat.ui.theme.Green100
+import co.amity.amitychat.ui.theme.Green300
+import co.amity.amitychat.ui.theme.Green500
 import com.amity.socialcloud.sdk.model.chat.channel.AmityChannel
 import com.amity.socialcloud.sdk.model.chat.message.AmityMessage
 import kotlinx.coroutines.launch
@@ -240,9 +242,9 @@ internal fun MessageHistory(
 
 @Composable
 internal fun MessageRow(msg: AmityMessage, isMe: Boolean) {
-    val backgroundColor = if (isMe) Color.Red else Color.White
+    val backgroundColor = if (isMe) Green300 else Green500
     val alignment = if (isMe) Alignment.CenterEnd else Alignment.CenterStart
-    val textColor = if (isMe) Color.White else MaterialTheme.colorScheme.onPrimary
+    val textColor = if (isMe) Green500 else Green100
 
     when (val data = msg.getData()) {
         is AmityMessage.Data.TEXT -> {
