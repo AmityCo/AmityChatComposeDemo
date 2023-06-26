@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,6 +44,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -256,13 +258,22 @@ internal fun MessageRow(msg: AmityMessage, isMe: Boolean) {
                         .padding(8.dp)
                         .background(backgroundColor, shape = RoundedCornerShape(8.dp)),
                 ) {
-                    Text(
-                        text = data.getText(),
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .wrapContentSize(),
-                        style = TextStyle(color = textColor),
-                    )
+                    Column {
+                        if (isMe) {
+                            Text(
+                                text = msg.getCreator()?.getDisplayName() ?: "unknown",
+                                fontWeight = FontWeight.Bold,
+                                color = textColor
+                            )
+                        }
+                        Text(
+                            text = data.getText(),
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .wrapContentSize(),
+                            style = TextStyle(color = textColor),
+                        )
+                    }
                 }
             }
         }
