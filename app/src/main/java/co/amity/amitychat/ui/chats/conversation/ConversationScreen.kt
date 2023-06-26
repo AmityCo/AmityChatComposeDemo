@@ -259,7 +259,7 @@ internal fun MessageRow(msg: AmityMessage, isMe: Boolean) {
                         .background(backgroundColor, shape = RoundedCornerShape(8.dp)),
                 ) {
                     Column {
-                        if (isMe) {
+                        if (!isMe) {
                             Text(
                                 text = msg.getCreator()?.getDisplayName() ?: "unknown",
                                 fontWeight = FontWeight.Bold,
